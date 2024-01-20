@@ -12,56 +12,52 @@
                 <div class="product-topbar d-xl-flex align-items-end justify-content-between">
                     <!-- Total Products -->
                     <div class="total-products">
-                        {{-- <p>Showing {{ count($products) > 0 ? 1 : 0 }} - {{ count($products) }} Products</p> --}}
-                        <p>Showing 0 Products</p>
+                        <p>Showing {{ count($products) > 0 ? 1 : 0 }} - {{ count($products) }} Products</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            @for ($i= 0; $i < 10; $i++)
-            {{-- @foreach ($products as $item) --}}
-            <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                <div class="single-product-wrapper">
-                    <!-- Product Image -->
-                    <div class="product-img">
-                        <a href="{{ url("product/detail/" . 1) }}">
-                            <img src="{{ asset('assets/img/product-img/pro-big-1.jpg') }}">
-                            <!-- Hover Thumb -->
-                             <img class="hover-img" src="{{ asset('assets/img/product-img/pro-big-2.jpg') }}" alt="">
-                            {{-- <img class="hover-img" src="{{ Storage::url($item->productPhotos[1]->image) }}" alt=""> --}}
-                        </a>
-                    </div>
-
-                    <!-- Product Description -->
-                    <div class="product-description d-flex align-items-center justify-content-between">
-                        <!-- Product Meta Data -->
-                        <div class="product-meta-data">
-                            <div class="line"></div>
-                            <p class="product-price">Rp 100.000</p>
-                            <a href="{{ url("product/detail/1") }}">
-                                <h6>TITLE ITEM</h6>
+            @foreach ($products as $item)
+                <div class="col-12 col-sm-6 col-md-12 col-xl-6">
+                    <div class="single-product-wrapper">
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <a href="{{ url("product/detail/" . 1) }}">
+                                <img src="{{ Storage::url($item->productPhotos[0]->image) }}">
+                                <!-- Hover Thumb -->
+                                <img class="hover-img" src="{{ Storage::url($item->productPhotos[1]->image) }}" alt="">
                             </a>
                         </div>
-                        <!-- Ratings & Cart -->
-                        <div class="ratings-cart text-right">
-                            <div class="ratings">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
+
+                        <!-- Product Description -->
+                        <div class="product-description d-flex align-items-center justify-content-between">
+                            <!-- Product Meta Data -->
+                            <div class="product-meta-data">
+                                <div class="line"></div>
+                                <p class="product-price">Rp. {{ nominalFormat($item->price) }}</p>
+                                <a href="{{ url("product/detail/1") }}">
+                                    <h6>{{ $item->title }}</h6>
+                                </a>
                             </div>
-                            <div class="cart">
-                                <a href="{{ url("product/detail/1") }}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset("assets/img/core-img/cart.png") }}" alt=""></a>
+                            <!-- Ratings & Cart -->
+                            <div class="ratings-cart text-right">
+                                <div class="ratings">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                <div class="cart">
+                                    <a href="{{ url("product/detail/1") }}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset("assets/img/core-img/cart.png") }}" alt=""></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            {{-- @endforeach --}}
-            @endfor
+            @endforeach
         </div>
 
         {{-- <div class="row">

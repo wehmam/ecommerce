@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\MidtransService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Faker\Factory as Faker;
@@ -21,18 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('test', function() {
-    // $faker = Faker::create();
-
-    // $products = [
-    //     [
-    //         "category_id" => 1,
-    //         "title" => "Iphone 15 Pro",
-    //         "qty"   => 10,
-    //         "description" => $faker->paragraph,
-    //         "price" => 19999000
-    //     ]
-    // ];
-
-    // dd($products);
-
+    return (new MidtransService())->getSnapToken('INV-123456789', 100000);
 });
