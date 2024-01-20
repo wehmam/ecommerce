@@ -26,7 +26,7 @@
                                 </select>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control" name="city" id="city" placeholder="City" value="{{ old('city') }}">
+                                <input type="text" class="form-control" name="city" id="city" placeholder="City" value="{{ old('city') }}" required>
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" class="form-control" name="district" id="district" placeholder="District" value="{{ old("district") }}">
@@ -60,7 +60,7 @@
                     <div class="payment-method">
                         <div class="custom-control custom-checkbox mr-sm-2">
                             <input type="checkbox" class="custom-control-input" id="cod" checked>
-                            <label class="custom-control-label" for="cod">Cash on Delivery</label>
+                            {{-- <label class="custom-control-label" for="cod">Cash on Delivery</label> --}}
                         </div>
                     </div>
 

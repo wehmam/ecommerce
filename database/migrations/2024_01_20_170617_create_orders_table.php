@@ -17,6 +17,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string("invoice_no")->unique();
+            $table->string("province");
+            $table->string("city");
+            $table->string("district");
+            $table->integer("post_code");
+            $table->string("address");
             $table->decimal('total_amount', 10, 2);
             $table->enum("status_paid", ["PAID", "NOT PAID"])->default("NOT PAID");
             $table->timestamp("paid_at")->nullable();

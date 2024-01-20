@@ -37,6 +37,8 @@ Route::prefix('')->group(function() {
         });
         Route::get('/checkout', [IndexController::class, 'checkout']);
         Route::post('/checkout', [IndexController::class, 'checkoutPost']);
+        Route::get('/payment/{invoice}', [IndexController::class, 'payment']);
+
         Route::post('logout', [AuthController::class, 'logout']);
     });
 });

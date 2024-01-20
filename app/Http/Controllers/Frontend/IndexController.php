@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddToCartRequest;
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Product;
 use App\Repository\CartRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\CheckoutRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -78,7 +80,26 @@ class IndexController extends Controller
         return view("frontend.pages.checkout", compact('provinces', 'carts'));
     }
 
-    public function checkoutProcess() {
-        
+    public function checkoutPost(Request $request) {
+        $response = CheckoutRepository::checkout($request);
+        alertNotify($response['status'], $response['message']);
+        if(!$response['status']) {
+            return redirect()
+                ->back()
+                ->withInput();
+        }
+
+        return redirect(url("payment/" . $response['data']['invoice_no']));
+    }
+
+    public function payment($invoice) {
+        $order = Order::with(["orderDetails", "orderDetails.product"])
+        ->where([
+            ["invoice_no", $invoice],
+            ["user_id", Auth::user()->id],
+            ["status_paid", "NOT PAID"]
+        ])->first();
+
+        return view("frontend.pages.payment", compact('order'));
     }
 }
