@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\IndexController;
 use Illuminate\Support\Facades\Route;
@@ -32,5 +34,31 @@ Route::prefix('')->group(function() {
         Route::get('/checkout', [IndexController::class, 'checkout']);
         Route::post('/checkout', [IndexController::class, 'checkoutPost']);
         Route::post('logout', [AuthController::class, 'logout']);
+    // });
+});
+
+
+Route::prefix('backend')->group(function () {
+    Route::get("/login", [AuthController::class, 'index'])->middleware('guestAdmin');
+    Route::post("/login", [AuthController::class, 'loginPost']);
+    // Route::middleware(['authAdmin'])->group(function() {
+        Route::get("/", [DashboardController::class, 'index']);
+        // Route::post("/logout", [AuthLoginController::class, 'logout']);
+        Route::resource('product', ProductController::class);
+        Route::delete('/product/delete-photo/{id}', [ProductController::class, 'deletePhotoById']);
+        // Route::resource('category', CategoryBackendController::class);
+
+        // Route::prefix("orders")->group(function () {
+        //     Route::get("/", [OrdersController::class, 'index']);
+        //     Route::get("/detail/{id?}", [OrdersController::class, "detail"]);
+        // });
+
+
+        // Route::get("activity-logs", [DashboardController::class, 'activityLogs']);
+        // Route::prefix("export-csv")->group(function() {
+        //     Route::get("/activity-logs", function() {
+        //         return Excel::download(new LogsExport, 'logs-'. date("Y-m-d").'.csv');
+        //     });
+        // });
     // });
 });
