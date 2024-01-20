@@ -3,10 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
 
 class AdminSeeder extends Seeder
 {
@@ -17,20 +18,21 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create([
-            'name' => 'Super Admin',
-            'email' => 'superadmin@admin.com',
-            'password' => Hash::make('12345678'),
+        DB::table("users")->insert([
+            [
+                "name"      => "Users",
+                "email"     => "users@gmail.com",
+                "password"  => bcrypt("users"),
+            ]
         ]);
-        $role = Role::create(['name' => 'super-admin']);
-        $user->assignRole($role);
 
-        $user = User::create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('12345678'),
-        ]);
-        $role = Role::create(['name' => 'admin']);
-        $user->assignRole($role);
+        $credentials = [
+            'email'    => 'admin@gmail.com',
+            'password' => 'admin',
+            'first_name'     => 'Super',
+            'last_name' => "Admin"
+        ];
+
+        Sentinel::registerAndActivate($credentials);
     }
 }

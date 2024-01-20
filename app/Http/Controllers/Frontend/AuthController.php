@@ -25,6 +25,21 @@ class AuthController extends Controller
         return redirect()->intended($response["data"]["redirect"]);
     }
 
+    public function indexRegister() {
+        return view('frontend.pages.register');
+    }
+
+    public function register() {
+        $response = AuthRepository::register();
+        if(!$response["status"]) {
+            alertNotify(false, $response["message"]);
+            return back()
+                ->withInput();
+        }
+
+        return redirect()->intended($response["data"]["redirect"]);
+    }
+
     public function logout(Request $request) {
         return AuthRepository::logout($request);
     }
