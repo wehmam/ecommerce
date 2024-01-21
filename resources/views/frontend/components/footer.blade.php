@@ -9,7 +9,6 @@
                     <div class="footer-logo mr-50">
                         <a href="{{ url('/') }}">
                             <img src="{{ asset("assets/img/core-img/logo2.png") }}" alt="">
-                            {{-- <img src="{{ asset('assets/img/PRIMA-ARYA.png') }}" alt=""> --}}
                         </a>
                     </div>
                     <!-- Copywrite Text -->

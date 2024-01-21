@@ -48,3 +48,63 @@ if(! function_exists('listProvinces')) {
         return json_decode($data, true);
     }
 }
+
+if(! function_exists('generateArrMidtrans')) {
+    function generateArrMidtrans($dump)
+    {
+        $result = [
+            'flag'              => '',
+            'kode_perusahaan'   => '',
+            'account_number'    => '',
+            'gross_amount'      => 0,
+            'pdf_url'           => '',
+            'status' => false
+        ];
+
+        if($dump == null || $dump == '') return $result;
+        
+        $dumpArr    = json_decode($dump, true);
+        if(isset($dumpArr['data'])){
+            $dumpArr = $dumpArr['data'];
+        }
+
+        if(isset($dumpArr['payment_type'])){
+            if($dumpArr['payment_type'] == 'gopay'){
+
+                $result['flag']             = $dumpArr['payment_type'];
+                $result['account_number']   = $dumpArr['transaction_id'];
+                $result['gross_amount']     = $dumpArr['gross_amount'];
+                $result['pdf_url']          = null;
+                $result['status']          = true;
+
+                return $result;
+            }
+        }
+
+
+        if (isset($dumpArr['va_numbers'])) {
+            $result['flag']             = $dumpArr['va_numbers'][0]['bank'];
+            $result['account_number']   = $dumpArr['va_numbers'][0]['va_number'];
+            $result['gross_amount']     = $dumpArr['gross_amount'];
+            $result['pdf_url']          = $dumpArr['pdf_url'];
+            $result['status']          = true;
+        } elseif (isset($dumpArr['permata_va_number'])) {
+            $result['flag']             = 'Permata';
+            $result['account_number']   = $dumpArr['permata_va_number'];
+            $result['gross_amount']     = $dumpArr['gross_amount'];
+            $result['pdf_url']          = $dumpArr['pdf_url'];
+            $result['status']          = true;
+        }else {
+            $result['flag']             = 'Mandiri';
+            $result['account_number']   = isset($dumpArr['bill_key']) ? $dumpArr['bill_key'] : null;
+            $result['gross_amount']     = $dumpArr['gross_amount'];
+            $result['pdf_url']          = $dumpArr['pdf_url'];
+            $result['status']          = true;
+            if (!empty($dumpArr['biller_code'])) {
+                $result['kode_perusahaan']  = $dumpArr['biller_code'];
+            }
+        }
+
+        return $result;
+    }
+}

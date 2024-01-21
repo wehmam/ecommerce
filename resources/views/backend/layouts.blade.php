@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>@yield("title", "Prima Arya Sembada")</title>
+    <title>@yield("title", "Oke Shop Admin")</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset("assets/backend/vendor/fontawesome-free/css/all.min.css") }}" rel="stylesheet" type="text/css">

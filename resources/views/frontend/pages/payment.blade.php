@@ -1,12 +1,12 @@
 @extends('frontend.layouts')
-@section('title', 'Cart')
+@section('title', 'Payments')
 @section('content')
 <div class="cart-table-area section-padding-100">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-lg-8">
                 <div class="cart-title mt-50">
-                    <h2>Invoice {{--  --}}</h2>
+                    <h2>Invoice {{ $order->invoice_no }}</h2>
                 </div>
 
                 <div class="cart-table clearfix">
@@ -42,9 +42,6 @@
                                             <p>Qty</p>
                                             <div class="quantity">
                                                 <p>{{ $item->qty }}</p>
-                                                {{-- <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span> --}}
-                                                {{-- <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="{{ $item->product->qty }}"> --}}
-                                                {{-- <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span> --}}
                                             </div>
                                         </div>
                                     </td>
@@ -69,9 +66,33 @@
                         <li><span>subtotal:</span> <span>Rp. {{ nominalFormat($order->orderDetails->sum('total_price')) }}</span></li>
                         <li><span>delivery:</span> <span>Free</span></li>
                         <li><span>total:</span> <span>Rp. {{ nominalFormat($order->orderDetails->sum('total_price')) }}</span></li>
+                        <li><span>Status Invoices</span>{{ $order->paid_at ? "PAID" : "NOT PAID" }}</li>
+
+                        @if (!is_null($order->dump_payment) && is_null($order->paid_at))
+                            @php
+                                $dump = generateArrMidtrans($order->dump_payment);
+                            @endphp
+                            <hr />
+
+                            <li><span>Bank :</span> <span>{{ strtoupper($dump["flag"]) }}</span></li>
+                            @if (isset($dump['kode_perusahaan']) && $dump['kode_perusahaan'] !== '')
+                                <li><span>Company Code :</span> <span>{{ $dump["kode_perusahaan"] }}</span></li>
+                                <li><span>Payment Account Number :</span> <span>{{ $dump["account_number"] }}</span></li>
+                            @else
+                                <li><span>Virtual Account :</span> <span>{{ $dump["account_number"] }}</span></li>
+                            @endif
+
+                                <li><span>Admin Fee :</span> <span>Rp . {{ nominalFormat($dump["gross_amount"] - $order["total_amount"]) }}</span></li>
+                                <li><span>Total Payment :</span> <span>Rp . {{ nominalFormat($dump["gross_amount"]) }}</span></li>
+                        @endif
+
                     </ul>
                     <div class="cart-btn mt-100">
-                        <a href="#" class="btn amado-btn w-100 btn-pay">Pay</a>
+                        @if (is_null($order->paid_at))
+                            <a href="#" class="btn amado-btn w-100 btn-pay">{{ $order->dump_payment ? "Change Payment" : "Pay" }}</a>
+                        @else
+                            <button href="#" class="btn amado-btn w-100" disabled>Your Invoice Paid</button>
+                        @endif
                     </div>
                 </div>
             </div>

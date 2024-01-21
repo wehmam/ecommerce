@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Repository\CartRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\CheckoutRepository;
+use App\Repository\PaymentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -92,6 +93,11 @@ class IndexController extends Controller
         return redirect(url("payment/" . $response['data']['invoice_no']));
     }
 
+    public function listInvoice() {
+        $orders = Order::get();
+        return view("frontend.pages.invoices", compact('orders'));
+    }
+
     public function payment($invoice) {
         $order = Order::with(["orderDetails", "orderDetails.product"])
         ->where([
@@ -100,6 +106,27 @@ class IndexController extends Controller
             ["status_paid", "NOT PAID"]
         ])->first();
 
+        if(!$order) {
+            alertNotify(false, "Invoice not exist!");
+            return redirect(url('products'));
+        }
+
         return view("frontend.pages.payment", compact('order'));
+    }
+
+    public function doToken(Request $request) {
+        $requestToken = PaymentRepository::requestSnapToken($request->all());
+
+        if(!$requestToken["status"]) {
+            return response()->json([
+                "status"    => false,
+                "data"      => $requestToken["message"]
+            ]);
+        }
+
+        return response()->json([
+            "status"    => true,
+            "data"      => $requestToken["data"]["access_token"]
+        ]);
     }
 }

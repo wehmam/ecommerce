@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('')->group(function() {
-    Route::get('login', [AuthController::class, 'index']);
+    Route::get('login', [AuthController::class, 'index'])->name('login');
     Route::post('login', [AuthController::class, 'login']);
     Route::get('register', [AuthController::class, 'indexRegister']);
     Route::post('register', [AuthController::class, 'register']);
@@ -37,7 +37,9 @@ Route::prefix('')->group(function() {
         });
         Route::get('/checkout', [IndexController::class, 'checkout']);
         Route::post('/checkout', [IndexController::class, 'checkoutPost']);
+        Route::get('invoices', [IndexController::class, 'listInvoice']);
         Route::get('/payment/{invoice}', [IndexController::class, 'payment']);
+        Route::post('do-token', [IndexController::class, 'doToken']);
 
         Route::post('logout', [AuthController::class, 'logout']);
     });

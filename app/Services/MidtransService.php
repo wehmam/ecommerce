@@ -8,8 +8,8 @@ class MidtransService {
 
     public function __construct()
     {
-        $this->midtransProd = (env("APP_ENV") == 'production') ? true : false;
-        $this->serverKey    = (env("APP_ENV") == 'production') ? "" : "SB-Mid-server-jV2c34fnF4FyjVP-9uvDhK5R";
+        $this->midtransProd = false;
+        $this->serverKey    = "SB-Mid-server-jV2c34fnF4FyjVP-9uvDhK5R";
     }
 
     public function getSnapToken($invoiceNo, $amount) {

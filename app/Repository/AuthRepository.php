@@ -17,10 +17,6 @@ class AuthRepository {
 
             $request->session()->regenerate();
 
-            if (self::checkIsAdmin()) {
-                return responseCustom("Login Success", ["redirect" => RouteServiceProvider::ADMIN] , true, 200);
-            }
-
             return responseCustom("Login Success", ["redirect" => RouteServiceProvider::USERS] , true, 200);
         } catch (\Throwable $th) {
             return responseCustom($th->getMessage());
@@ -57,21 +53,20 @@ class AuthRepository {
 
     public static function logout($request) {
         try {
-            $isAdmin = self::checkIsAdmin();
 
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            return responseCustom("Logout Success", ["redirect" => $isAdmin ? RouteServiceProvider::ADMIN : RouteServiceProvider::USERS], true, 200);
+            return responseCustom("Logout Success", ["redirect" => RouteServiceProvider::USERS], true, 200);
         } catch (\Throwable $th) {
             return responseCustom($th->getMessage());
         }
     }
 
-    public static function checkIsAdmin() {
-        return Auth::user()
-            ->getRoleNames()
-            ->isNotEmpty();
-    }
+    // public static function checkIsAdmin() {
+    //     return Auth::user()
+    //         ->getRoleNames()
+    //         ->isNotEmpty();
+    // }
 }

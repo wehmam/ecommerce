@@ -7,12 +7,10 @@
 
     <!-- Logo main -->
     <div class="logo">
-        {{-- <a href="index.html"><img src="{{ asset("assets/img/core-img/logo.png") }}" alt=""></a> --}}
         <div class="row">
             <div class="col-md-12">
                 <a href="#">
-                    <img src="{{ asset("assets/img/core-img/logo.png") }}" alt="">
-                    {{-- <img src="{{ asset('assets/img/PRIMA-ARYA.png') }}" alt=""> --}}
+                    <img src="{{ asset("assets/img/core-img/shop.jpeg") }}" alt="">
                 </a>
             </div>
 
@@ -51,6 +49,7 @@
     <!-- Cart Menu -->
     <div class="cart-fav-search mb-100">
         <a href="{{ url("cart") }}" class="cart-nav"><img src="{{ asset("assets/img/core-img/cart.png") }}" alt=""> Cart <span>({{ cartTotal() }})</span></a>
+        <a href="{{ url("invoices") }}" class="cart-nav"><img src="{{ asset("assets/img/core-img/paypal.png") }}" alt=""> Invoice</a>
         <a href="#" class="search-nav"><img src="{{ asset("assets/img/core-img/search.png") }}" alt=""> Search</a>
         {{-- <a href="#" class="fav-nav"><img src="{{ asset("assets/img/core-img/favorites.png") }}" alt=""> Wishlist <span>(1)</span</a> --}}
     </div>
