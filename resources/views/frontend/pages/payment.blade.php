@@ -101,6 +101,6 @@
 </div>
 @endsection
 @section('javascript')
-    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-iR3m11J8EDBriIte"></script>
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env("MIDTRANS_CLIENT_KEY") }}"></script>
     <script src="{{ asset("assets/js/do.js?v=1.0") }}"></script>
 @endsection

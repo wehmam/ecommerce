@@ -35,7 +35,7 @@ class PaymentRepository {
             $paymentLog->total_amount = $findInvoice->total_amount;
             $paymentLog->save();
 
-            return responseCustom("Token" , ["access_token" => (new MidtransService())->getSnapToken($paymentLog->order_id, $paymentLog->total_amount)], true);
+            return responseCustom("Token" , ["access_token" => (new MidtransService())->getSnapToken($paymentLog->payment_id, $paymentLog->total_amount)], true);
         } catch (\Throwable $th) {
             return responseCustom($th->getMessage());
         }

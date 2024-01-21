@@ -8,8 +8,8 @@ class MidtransService {
 
     public function __construct()
     {
-        $this->midtransProd = false;
-        $this->serverKey    = "SB-Mid-server-jV2c34fnF4FyjVP-9uvDhK5R";
+        $this->midtransProd = env("APP_ENV") != "production" ? false : true;
+        $this->serverKey    = env("MIDTRANS_SERVER_KEY", "SB-Mid-server-jV2c34fnF4FyjVP-9uvDhK5R");
     }
 
     public function getSnapToken($invoiceNo, $amount) {
@@ -43,7 +43,8 @@ class MidtransService {
                 "category"      => "Invoice",
                 "merchant_name" => "Midtrans.com"
             ],
-            "enabled_payments"   => ["bca_va", "bni_va", "other_va", "echannel", "gci", "credit_card", "gopay"]
+            "enabled_payments"   => ["bca_va", "bni_va", "other_va"]
+            // "enabled_payments"   => ["bca_va", "bni_va", "other_va", "echannel", "gci", "credit_card", "gopay"]
 
         ]);
 
