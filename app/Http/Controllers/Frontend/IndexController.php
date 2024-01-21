@@ -102,8 +102,7 @@ class IndexController extends Controller
         $order = Order::with(["orderDetails", "orderDetails.product"])
         ->where([
             ["invoice_no", $invoice],
-            ["user_id", Auth::user()->id],
-            ["status_paid", "NOT PAID"]
+            ["user_id", Auth::user()->id]
         ])->first();
 
         if(!$order) {
