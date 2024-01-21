@@ -40,11 +40,11 @@
             <span>Product</span></a>
     </li>
 
-    <li class="nav-item {{ Request::segment(2) == "orders" ? "active" : ""  }}">
+    {{-- <li class="nav-item {{ Request::segment(2) == "orders" ? "active" : ""  }}">
         <a class="nav-link" href="{{ url("/backend/orders") }}">
             <i class="fa fa-shopping-basket"></i>
             <span>Orders</span></a>
-    </li>
+    </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">
