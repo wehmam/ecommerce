@@ -27,7 +27,9 @@
                             <a href="{{ url("product/detail/" . 1) }}">
                                 <img src="{{ Storage::url($item->productPhotos[0]->image) }}">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="{{ Storage::url($item->productPhotos[1]->image) }}" alt="">
+                                @if (isset($item->productPhotos[1]))
+                                    <img class="hover-img" src="{{ Storage::url($item->productPhotos[1]->image) }}" alt="">
+                                @endif
                             </a>
                         </div>
 
