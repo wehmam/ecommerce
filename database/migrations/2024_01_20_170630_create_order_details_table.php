@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
             $table->integer("qty");
-            $table->decimal("price_per_product", 15, 2)->default(0);
-            $table->decimal("total_price", 15, 2)->default(0);
+            $table->decimal("price_per_product", 15, 0)->default(0);
+            $table->decimal("total_price", 15, 0)->default(0);
             $table->timestamps();
         });
     }

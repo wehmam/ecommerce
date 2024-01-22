@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string("district");
             $table->integer("post_code");
             $table->string("address");
-            $table->decimal('total_amount', 10, 2);
+            $table->decimal('total_amount', 15, 0);
             $table->enum("status_paid", ["PAID", "NOT PAID"])->default("NOT PAID");
             $table->timestamp("paid_at")->nullable();
             $table->text("dump_payment")->nullable();

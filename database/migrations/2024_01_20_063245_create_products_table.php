@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("title");
             $table->integer("qty");
             $table->text("description");
-            $table->decimal("price", 15, 2)->default(0);
+            $table->decimal("price", 15, 0)->default(0);
             $table->tinyInteger("is_active")->default(1);
             $table->timestamps();
             $table->softDeletes();

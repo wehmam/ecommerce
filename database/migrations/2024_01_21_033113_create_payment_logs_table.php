@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedInteger("order_id");
             $table->string("payment_id");
             $table->string("status")->default("REQUESTED");
-            $table->decimal('total_amount', 15, 2)->default(0);
+            $table->decimal('total_amount', 15, 0)->default(0);
             $table->string("payment_company")->default("MIDTRANS");
             $table->timestamp('paid_at')->nullable();
             $table->timestamps();
