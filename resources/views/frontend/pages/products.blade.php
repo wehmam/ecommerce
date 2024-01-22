@@ -24,7 +24,7 @@
                     <div class="single-product-wrapper">
                         <!-- Product Image -->
                         <div class="product-img">
-                            <a href="{{ url("product/detail/" . 1) }}">
+                            <a href="{{ url("product/detail/" . $item->id) }}">
                                 <img src="{{ Storage::url($item->productPhotos[0]->image) }}">
                                 <!-- Hover Thumb -->
                                 @if (isset($item->productPhotos[1]))
@@ -39,7 +39,7 @@
                             <div class="product-meta-data">
                                 <div class="line"></div>
                                 <p class="product-price">Rp. {{ nominalFormat($item->price) }}</p>
-                                <a href="{{ url("product/detail/1") }}">
+                                <a href="{{ url("product/detail/" . $item->id) }}">
                                     <h6>{{ $item->title }}</h6>
                                 </a>
                             </div>
@@ -53,7 +53,7 @@
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </div>
                                 <div class="cart">
-                                    <a href="{{ url("product/detail/1") }}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset("assets/img/core-img/cart.png") }}" alt=""></a>
+                                    <a href="{{ url("product/detail/" . $item->id) }}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset("assets/img/core-img/cart.png") }}" alt=""></a>
                                 </div>
                             </div>
                         </div>

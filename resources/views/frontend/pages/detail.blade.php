@@ -38,8 +38,8 @@
                                     @endphp
                                 @foreach ($product->productPhotos as $key => $photo)
                                     <div class="carousel-item {{ $activeCar == true ? "active" : "" }}">
-                                        <a class="gallery_img" href="{{ env("PRODUCTION_URL") . Storage::url($photo->image) }}">
-                                            <img class="d-block w-100" src="{{ env("PRODUCTION_URL") . Storage::url($photo->image) }}" alt="First slide">
+                                        <a class="gallery_img" href="{{ Storage::url($photo->image) }}">
+                                            <img class="d-block w-100" src="{{ Storage::url($photo->image) }}" alt="First slide">
                                         </a>
                                     </div>
                                     @php
